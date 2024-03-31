@@ -12,11 +12,12 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  name  String
+  firstName  String
+  lastName   String
+  age        Int
+  weight     Float
   login String @unique
   password String?
-  role String?
-  otp String?
 
   favorites Favorite[]
 }
