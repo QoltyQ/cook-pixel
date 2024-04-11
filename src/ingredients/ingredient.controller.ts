@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Ingredient } from '@prisma/client';
 import { IngredientService } from './ingredient.service';
 import { CreateIngredientDto } from './ingredient.dto';
@@ -20,17 +28,23 @@ export class IngredientController {
   }
 
   @Get(':id')
-  getIngredientById(id: number): Promise<Ingredient> {
-    return this.ingredientService.getIngredientById(id);
+  getIngredientById(@Param('id') id: string): Promise<Ingredient> {
+    const ingredientId = parseInt(id);
+    return this.ingredientService.getIngredientById(ingredientId);
   }
 
   @Put(':id')
-  updateIngredient(id: number, ingredient: Ingredient): Promise<Ingredient> {
-    return this.ingredientService.updateIngredient(id, ingredient);
+  updateIngredient(
+    @Param('id') id: string,
+    ingredient: Ingredient,
+  ): Promise<Ingredient> {
+    const ingredientId = parseInt(id);
+    return this.ingredientService.updateIngredient(ingredientId, ingredient);
   }
 
   @Delete(':id')
-  deleteIngredient(id: number): Promise<Ingredient> {
-    return this.ingredientService.deleteIngredient(id);
+  deleteIngredient(@Param('id') id: string): Promise<Ingredient> {
+    const ingredientId = parseInt(id);
+    return this.ingredientService.deleteIngredient(ingredientId);
   }
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Recipe } from '@prisma/client';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto } from './recipe.dto';
@@ -18,17 +26,26 @@ export class RecipeController {
   }
 
   @Get(':id')
-  getRecipeById(id: number): Promise<Recipe> {
-    return this.recipeService.getRecipeById(id);
+  getRecipeById(@Param('id') id: string): Promise<Recipe> {
+    const recipeId = parseInt(id);
+    return this.recipeService.getRecipeById(recipeId);
+  }
+
+  @Get('category/:id')
+  getRecipeByCategoryId(@Param('id') id: string): Promise<Recipe[]> {
+    const recipeId = parseInt(id);
+    return this.recipeService.getRecipeByCategoryId(recipeId);
   }
 
   @Put(':id')
-  updateRecipe(id: number, recipe: Recipe): Promise<Recipe> {
-    return this.recipeService.updateRecipe(id, recipe);
+  updateRecipe(@Param('id') id: string, recipe: Recipe): Promise<Recipe> {
+    const recipeId = parseInt(id);
+    return this.recipeService.updateRecipe(recipeId, recipe);
   }
 
   @Delete(':id')
-  deleteRecipe(id: number): Promise<Recipe> {
-    return this.recipeService.deleteRecipe(id);
+  deleteRecipe(@Param('id') id: string): Promise<Recipe> {
+    const recipeId = parseInt(id);
+    return this.recipeService.deleteRecipe(recipeId);
   }
 }

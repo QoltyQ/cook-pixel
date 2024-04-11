@@ -6,6 +6,8 @@ import { UserModule } from 'src/users/user.module';
 import { IngredientModule } from 'src/ingredients/ingredient.module';
 import { RecipeModule } from 'src/recipes/recipe.module';
 import { CategoryModule } from 'src/categories/category.module';
+import { RecipeIngredientModule } from 'src/RecipeIngredient/RecipeIngredient.module';
+import { FavoriteModule } from 'src/favorites/favorites.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { CategoryModule } from 'src/categories/category.module';
     IngredientModule,
     RecipeModule,
     CategoryModule,
+    RecipeIngredientModule,
+    FavoriteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

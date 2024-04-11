@@ -19,6 +19,10 @@ export class RecipeService {
     return this.recipeRepository.getRecipeById(id);
   }
 
+  getRecipeByCategoryId(category: number): Promise<Recipe[]> {
+    return this.recipeRepository.getRecipeByCategoryId(category);
+  }
+
   updateRecipe(id: number, ingredient: Recipe): Promise<Recipe> {
     return this.recipeRepository.updateRecipe(id, ingredient);
   }

@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Category } from '@prisma/client';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './category.dto';
@@ -18,17 +26,23 @@ export class CategoryController {
   }
 
   @Get(':id')
-  getCategoryById(id: number): Promise<Category> {
-    return this.categoryService.getCategoryById(id);
+  getCategoryById(@Param('id') id: string): Promise<Category> {
+    const categoryId = parseInt(id);
+    return this.categoryService.getCategoryById(categoryId);
   }
 
   @Put(':id')
-  updateCategory(id: number, category: Category): Promise<Category> {
-    return this.categoryService.updateCategory(id, category);
+  updateCategory(
+    @Param('id') id: string,
+    category: Category,
+  ): Promise<Category> {
+    const categoryId = parseInt(id);
+    return this.categoryService.updateCategory(categoryId, category);
   }
 
   @Delete(':id')
-  deleteCategory(id: number): Promise<Category> {
-    return this.categoryService.deleteCategory(id);
+  deleteCategory(@Param('id') id: string): Promise<Category> {
+    const categoryId = parseInt(id);
+    return this.categoryService.deleteCategory(categoryId);
   }
 }

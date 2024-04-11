@@ -11,6 +11,14 @@ class RecipeRepository {
     });
   }
 
+  async getRecipeByCategoryId(category: number) {
+    return prisma.recipe.findMany({
+      where: {
+        categoryId: category,
+      },
+    });
+  }
+
   async getRecipeById(id: number) {
     return prisma.recipe.findUnique({
       where: {

@@ -101,7 +101,9 @@ export class AuthService {
     try {
       const decoded = jwt.verify(refreshToken, 'refresh-secret-key');
 
-      const user = decoded.user;
+      const user = decoded;
+
+      console.log(user);
 
       const accessToken = this.generateAccessToken(user);
 
