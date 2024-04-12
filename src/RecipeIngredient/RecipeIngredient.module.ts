@@ -9,8 +9,8 @@ import IngredientRepository from 'src/ingredients/ingredient.repository';
   controllers: [RecipeIngredientController],
   providers: [
     RecipeIngredientService,
-    ComponentRepository,
     RecipeRepository,
+    ComponentRepository,
     IngredientRepository,
   ],
 })

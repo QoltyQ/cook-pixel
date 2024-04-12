@@ -4,8 +4,6 @@ const prisma = new PrismaClient();
 
 class RecipeRepository {
   async createRecipe(data: any) {
-    console.log(data);
-
     return prisma.recipe.create({
       data,
     });
@@ -15,6 +13,14 @@ class RecipeRepository {
     return prisma.recipe.findMany({
       where: {
         categoryId: category,
+      },
+    });
+  }
+
+  async getRecipeByName(name: string): Promise<any> {
+    return prisma.recipe.findMany({
+      where: {
+        recipeName: name,
       },
     });
   }

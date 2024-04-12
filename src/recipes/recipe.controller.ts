@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { Recipe } from '@prisma/client';
 import { RecipeService } from './recipe.service';
@@ -25,16 +26,21 @@ export class RecipeController {
     return this.recipeService.getRecipes();
   }
 
-  @Get(':id')
-  getRecipeById(@Param('id') id: string): Promise<Recipe> {
-    const recipeId = parseInt(id);
-    return this.recipeService.getRecipeById(recipeId);
+  @Get('name')
+  getRecipeByName(@Query('name') name: string): Promise<Recipe[]> {
+    return this.recipeService.getRecipeByName(name);
   }
 
   @Get('category/:id')
   getRecipeByCategoryId(@Param('id') id: string): Promise<Recipe[]> {
     const recipeId = parseInt(id);
     return this.recipeService.getRecipeByCategoryId(recipeId);
+  }
+
+  @Get(':id')
+  getRecipeById(@Param('id') id: string): Promise<Recipe> {
+    const recipeId = parseInt(id);
+    return this.recipeService.getRecipeById(recipeId);
   }
 
   @Put(':id')
