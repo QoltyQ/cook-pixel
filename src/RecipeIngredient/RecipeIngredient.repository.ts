@@ -38,6 +38,14 @@ class ComponentRepository {
     return recipesWithIngredients;
   }
 
+  async getComponentByRecipeId(id: number) {
+    return prisma.recipeIngredient.findMany({
+      where: {
+        recipeId: id,
+      },
+    });
+  }
+
   async updateComponent(id: number, data: any) {
     return prisma.recipeIngredient.update({
       where: {

@@ -19,10 +19,10 @@ class FavoriteRepository {
     });
   }
 
-  async getFavoriteByRecipeId(recipe: number) {
+  async getFavoriteByUserId(id: number) {
     return prisma.favorite.findMany({
       where: {
-        recipeId: recipe,
+        userId: id,
       },
     });
   }

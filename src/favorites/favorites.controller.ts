@@ -31,10 +31,10 @@ export class FavoriteController {
     return this.favoriteService.getFavoriteById(favoriteId);
   }
 
-  @Get('recipe/:recipeId')
-  getFavoriteByCategoryId(recipeId: string): Promise<Favorite[]> {
-    const favoriteId = parseInt(recipeId);
-    return this.favoriteService.getFavoriteByRecipeId(favoriteId);
+  @Get('user/:id')
+  getFavoriteByCategoryId(@Param('id') id: string): Promise<Favorite[]> {
+    const userId = parseInt(id);
+    return this.favoriteService.getFavoriteByUserId(userId);
   }
 
   @Put(':id')

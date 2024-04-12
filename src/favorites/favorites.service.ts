@@ -19,8 +19,8 @@ export class FavoriteService {
     return this.favoriteRepository.getFavoriteById(id);
   }
 
-  getFavoriteByRecipeId(Favorite: number): Promise<Favorite[]> {
-    return this.favoriteRepository.getFavoriteByRecipeId(Favorite);
+  getFavoriteByUserId(Favorite: number): Promise<Favorite[]> {
+    return this.favoriteRepository.getFavoriteByUserId(Favorite);
   }
 
   updateFavorite(id: number, ingredient: Favorite): Promise<Favorite> {
