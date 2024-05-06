@@ -21,8 +21,26 @@ export class RecipeService {
     return this.recipeRepository.getRecipes();
   }
 
-  getRecipeById(id: number): Promise<Recipe> {
-    return this.recipeRepository.getRecipeById(id);
+  async getRecipeById(id: number): Promise<Recipe> {
+    const recipe = await this.recipeRepository.getRecipeById(id);
+    const ings = await this.componentRepository.getComponentByRecipeId(id);
+
+    const ingredientsOfRecipe = ings.map(async (ingredient) => {
+      const { ingredientId } = ingredient;
+      const ingredientData =
+        await this.ingredientRepository.getIngredientById(ingredientId);
+
+      return {
+        ingredientName: ingredientData.ingredientName,
+        quantity: ingredient.quantity,
+        unit: ingredient.unit,
+      };
+    });
+
+    const ingredients = await Promise.all(ingredientsOfRecipe);
+
+    const recip = { ...recipe, ingredients };
+    return recip;
   }
 
   getRecipeByCategoryId(category: number): Promise<Recipe[]> {
