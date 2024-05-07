@@ -19,9 +19,17 @@ import { AuthGuard } from 'src/jwt/jwt.guard';
 export class FavoriteController {
   constructor(private readonly favoriteService: FavoriteService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
-  createFavorite(@Body() favorite: CreateFavoriteDto): Promise<Favorite> {
-    return this.favoriteService.createFavorite(favorite);
+  createFavorite(
+    @Req() req: any,
+    @Body() favorite: CreateFavoriteDto,
+  ): Promise<Favorite> {
+    if (!req.user || !req.user.user) {
+      throw new UnauthorizedException('User not found');
+    }
+    const userId = req.user.user.id;
+    return this.favoriteService.createFavorite(userId, favorite);
   }
 
   @Get()
@@ -33,7 +41,7 @@ export class FavoriteController {
   @Get('user')
   async getFavoriteByCategoryId(@Req() req: any): Promise<Favorite[]> {
     if (!req.user || !req.user.user) {
-      throw new UnauthorizedException('User profile not found');
+      throw new UnauthorizedException('User not found');
     }
     const userId = req.user.user.id;
     return this.favoriteService.getFavoriteByUserId(userId);

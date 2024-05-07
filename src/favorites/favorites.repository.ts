@@ -3,11 +3,12 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class FavoriteRepository {
-  async createFavorite(data: any) {
-    console.log(data);
-
+  async createFavorite(userId: number, data: any) {
     return prisma.favorite.create({
-      data,
+      data: {
+        ...data,
+        userId,
+      },
     });
   }
 

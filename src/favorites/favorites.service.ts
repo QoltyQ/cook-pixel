@@ -7,8 +7,11 @@ import FavoriteRepository from './favorites.repository';
 export class FavoriteService {
   constructor(private readonly favoriteRepository: FavoriteRepository) {}
 
-  createFavorite(ingredient: CreateFavoriteDto): Promise<Favorite> {
-    return this.favoriteRepository.createFavorite(ingredient);
+  createFavorite(
+    userId: number,
+    ingredient: CreateFavoriteDto,
+  ): Promise<Favorite> {
+    return this.favoriteRepository.createFavorite(userId, ingredient);
   }
 
   getFavorites(): Promise<Favorite[]> {
