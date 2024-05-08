@@ -20,7 +20,9 @@ class RecipeRepository {
   async getRecipeByName(name: string): Promise<any> {
     return prisma.recipe.findMany({
       where: {
-        recipeName: name,
+        recipeName: {
+          contains: name,
+        },
       },
     });
   }
