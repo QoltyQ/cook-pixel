@@ -86,4 +86,8 @@ export class RecipeService {
   deleteRecipe(id: number): Promise<Recipe> {
     return this.recipeRepository.deleteRecipe(id);
   }
+
+  async uploadPhoto(recipeId: number, filename: string) {
+    return this.recipeRepository.uploadPhoto(recipeId, filename);
+  }
 }

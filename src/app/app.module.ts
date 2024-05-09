@@ -8,6 +8,7 @@ import { RecipeModule } from 'src/recipes/recipe.module';
 import { CategoryModule } from 'src/categories/category.module';
 import { RecipeIngredientModule } from 'src/RecipeIngredient/RecipeIngredient.module';
 import { FavoriteModule } from 'src/favorites/favorites.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FavoriteModule } from 'src/favorites/favorites.module';
     CategoryModule,
     RecipeIngredientModule,
     FavoriteModule,
+    MulterModule.register({ dest: './uploads' }),
   ],
   controllers: [AppController],
   providers: [AppService],

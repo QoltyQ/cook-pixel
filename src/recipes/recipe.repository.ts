@@ -65,6 +65,17 @@ class RecipeRepository {
       },
     });
   }
+
+  async uploadPhoto(recipeId: number, filename: string) {
+    return prisma.recipe.update({
+      where: {
+        id: recipeId,
+      },
+      data: {
+        photo: filename,
+      },
+    });
+  }
 }
 
 export default RecipeRepository;

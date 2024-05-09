@@ -7,10 +7,15 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Recipe } from '@prisma/client';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto } from './recipe.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { extname } from 'path';
+import { diskStorage } from 'multer';
 
 @Controller('api/recipes')
 export class RecipeController {
@@ -53,5 +58,26 @@ export class RecipeController {
   deleteRecipe(@Param('id') id: string): Promise<Recipe> {
     const recipeId = parseInt(id);
     return this.recipeService.deleteRecipe(recipeId);
+  }
+
+  @Post('photo-upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  async uploadFile(@UploadedFile() file, @Body() body: any) {
+    const filename = file.filename;
+    const id = parseInt(body.recipeId);
+    return this.recipeService.uploadPhoto(id, filename);
   }
 }

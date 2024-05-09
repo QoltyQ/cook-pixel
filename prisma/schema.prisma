@@ -41,7 +41,9 @@ model Recipe {
   recipeName      String
   description     String
   preparationSteps String?
-  categoryId      Int           // Foreign key to Categories table
+  categoryId      Int           
+  photo           String?
+  link            String?
   favorites       Favorite[]
   RecipeIngredients RecipeIngredient[]
 

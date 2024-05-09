@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import UsersRepository from './user.repository';
+import { UpdateUserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -16,5 +17,9 @@ export class UserService {
 
   getUserById(id: number): Promise<User> {
     return this.userRepository.getUserById(id);
+  }
+
+  updateUserProfile(userId: number, user: UpdateUserDto): Promise<User> {
+    return this.userRepository.updateUser(userId, user);
   }
 }

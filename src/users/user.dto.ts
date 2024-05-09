@@ -28,19 +28,22 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
   @IsString()
-  @IsNotEmpty()
-  name: string;
+  firstName?: string;
 
   @IsString()
-  @IsNotEmpty()
-  login: string;
+  lastName?: string;
+
+  @IsString()
+  login?: string;
 
   @IsString()
   password?: string;
 
-  @IsString()
-  @IsNotEmpty()
-  role: string;
+  @IsNumber()
+  age?: number;
+
+  @IsNumber()
+  weight?: number;
 }
 
 export class VerifyUserDto {
