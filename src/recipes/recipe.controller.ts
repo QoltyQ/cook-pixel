@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -76,9 +77,20 @@ export class RecipeController {
     }),
   )
   async uploadFile(@UploadedFile() file, @Body() body: any) {
-    console.log(file, 'file');
-    const filename = file.filename;
-    const id = parseInt(body.recipeId);
-    return this.recipeService.uploadPhoto(id, filename);
+    try {
+      if (!file) {
+        throw new BadRequestException('No file uploaded');
+      }
+
+      console.log('Uploaded file:', file);
+
+      const filename = file.filename;
+      const id = parseInt(body.recipeId);
+
+      return this.recipeService.uploadPhoto(id, filename);
+    } catch (error) {
+      console.error('Error uploading file:', error.message);
+      throw error;
+    }
   }
 }
