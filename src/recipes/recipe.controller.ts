@@ -84,7 +84,7 @@ export class RecipeController {
 
       console.log('Uploaded file:', file);
 
-      const filename = file.filename;
+      const filename = file.path;
       const id = parseInt(body.recipeId);
 
       return this.recipeService.uploadPhoto(id, filename);
