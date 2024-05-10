@@ -10,6 +10,7 @@ import { RecipeIngredientModule } from 'src/RecipeIngredient/RecipeIngredient.mo
 import { FavoriteModule } from 'src/favorites/favorites.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     FavoriteModule,
     MulterModule.register({ dest: './uploads' }),
     ServeStaticModule.forRoot({
-      rootPath: './uploads',
+      rootPath: join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/uploads/',
     }),
   ],
   controllers: [AppController],
